@@ -17,7 +17,7 @@ export default function Navbar() {
                         <div className="left-side">
                         <Link href='/logout' className="text-3xl font-black"><span className="text-orange-500">T</span>Journal</Link>
                         </div>
-                        <Link href='#' className="transition duration-300 hover:bg-orange-500 flex justify-center align-middle rounded-md p-2">Documentation</Link>
+                        <Link href='https://github.com/ginocarabelli/TJournal' className="transition duration-300 hover:bg-orange-500 flex justify-center align-middle rounded-md p-2">Documentation</Link>
                         <div className="right-side w-auto">
                         {session?.user ? (
                             <div className="flex bg-neutral-900 px-4 py-3 gap-5 rounded-lg">
