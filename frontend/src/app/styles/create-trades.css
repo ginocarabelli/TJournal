@@ -1,0 +1,14 @@
+input, select, textarea{
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 15px;
+}
+.formulary{
+    font-weight: 600;
+    margin: auto;
+}
+textarea{
+    min-height: 200px;
+    max-height: 200px;
+}

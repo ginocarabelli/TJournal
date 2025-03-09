@@ -1,0 +1,26 @@
+.parent {
+    display: flex;
+    gap: 8px;
+    max-height: 122.5vh;
+}
+.trades-list{
+    display: grid;
+    grid-template-columns: 
+        repeat(
+            auto-fit,
+            minmax(450px, 1fr)
+        );
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 1024px) {
+    .parent{
+        display: flex;
+        flex-direction: column;
+    }
+    .cards-container{
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,68 @@
+.github-link {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.github-link {
+    --primary-color: #111;
+    --hovered-color: white;
+    display: flex;
+    font-weight: 600;
+    font-size: 20px;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.github-link p {
+    margin: 0;
+    position: relative;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.github-link::after {
+position: absolute;
+content: "";
+width: 0;
+left: 0;
+bottom: -7px;
+background: var(--hovered-color);
+height: 3px;
+transition: 0.3s ease-out;
+}
+
+.github-link p::before {
+position: absolute;
+/*   box-sizing: border-box; */
+content: "Subscribe";
+width: 0%;
+inset: 0;
+color: var(--hovered-color);
+overflow: hidden;
+transition: 0.3s ease-out;
+}
+
+.github-link:hover::after {
+width: 100%;
+}
+
+.github-link:hover p::before {
+width: 100%;
+}
+
+.github-link:hover svg {
+transform: translateX(4px);
+color: var(--hovered-color);
+}
+
+.github-link svg {
+color: var(--primary-color);
+transition: 0.2s;
+position: relative;
+width: 15px;
+transition-delay: 0.2s;
+}
+  

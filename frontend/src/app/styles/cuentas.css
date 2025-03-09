@@ -1,0 +1,28 @@
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 270px 1fr 250px;
+    gap: 10px;
+}
+    
+#ultimosTrades {
+    grid-column: span 5 / span 5;
+}
+
+#tradesMes {
+    grid-column: span 4 / span 4;
+    grid-row: span 1 / span 1;
+    grid-row-start: 2;
+}
+
+#cards {
+    grid-row: span 4 / span 4;
+    grid-column-start: 5;
+    grid-row-start: 2;
+}
+
+#statsCuenta {
+    grid-column: span 4 / span 4;
+    grid-row: span 2 / span 2;
+    grid-row-start: 3;
+}

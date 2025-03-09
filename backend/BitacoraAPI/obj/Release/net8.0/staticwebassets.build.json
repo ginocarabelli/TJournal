@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "KAipy1XlSkWVS8pdmymqvJvH0wIsUEYZcLq66Ub3Qw0=",
+  "Source": "BitacoraAPI",
+  "BasePath": "_content/BitacoraAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

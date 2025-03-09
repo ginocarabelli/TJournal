@@ -1,0 +1,3 @@
+Trading Journal is a personal project which consists of the registration of accounts and trades for the later visualization of statistics both in percentage and monetary. 
+Developed in Next Js, with C# APIs and a SQL Server database, Trading Journal becomes my first complete and most advanced project. Like any project, it has thousands of things to improve such as styles, bugs, coding, etc. If the project reaches a large audience there is the opportunity to improve it and offer a better user experience. Thank you very much Reader for taking the time to review the repository, to contact me my linkedin is: 
+https://www.linkedin.com/in/gino-carabelli-garc%C3%ADa-726726247/
