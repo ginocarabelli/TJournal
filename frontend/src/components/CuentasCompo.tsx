@@ -1,5 +1,6 @@
+import { ICuenta } from "@/app/lib/definitions";
 import Link from "next/link";
-export default function CuentasCompo({ session, cuentas }) {
+export default function CuentasCompo({ cuentas } : { cuentas : ICuenta[], }) {
 
     return (
         <ol className="cuentas-list my-5 rounded-lg bg-neutral-900 flex flex-col gap-3">
@@ -10,7 +11,7 @@ export default function CuentasCompo({ session, cuentas }) {
                         <div className="li-mode bg-neutral-950 bg-opacity-50 backdrop-blur-xl p-5 rounded-xl grid grid-cols-4 gap-3 w-100 justify-between mb-3">
                             <p className="my-auto flex gap-3">
                                 <span className="bg-orange-500 rounded-lg p-2">Creation Date:</span>{" "}
-                                <span className="my-auto">{cuenta.fechaCreacion.toString()}</span>
+                                <span className="my-auto">{cuenta.fechaCreacion?.toString()}</span>
                             </p>
                             <p className="my-auto flex gap-3 my-auto">
                                 <span className="bg-orange-500 rounded-lg p-2">Company:</span>{" "}

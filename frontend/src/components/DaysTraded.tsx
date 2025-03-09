@@ -1,8 +1,9 @@
+import { ITrades } from '@/app/lib/definitions';
 import React from 'react'
 
-export default function DaysTraded({ trades, session }) {
+export default function DaysTraded({ trades } : { trades : ITrades[] }) {
     
-    function pnlDay(day) {
+    function pnlDay(day : number) {
         let pnl = 0;
         
         const tradesMatch = trades

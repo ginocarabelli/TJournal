@@ -1,5 +1,5 @@
 "use server"
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from "@/app/lib/utils";
 import { getCuentasId, getStatsPnlPeriod, getTradesCuenta } from '@/app/lib/data';
 import { ChartStats } from '@/components/ChartsStats';
 import DaysTraded from '@/components/DaysTraded';
@@ -10,13 +10,15 @@ import Link from 'next/link';
 import React from 'react'
 import "@/app/styles/dashboard.css"
 
-export default async function ViewCuenta({ params } : { params : { id: string }}) {
+type tParams = Promise<{ id: number }>;
+
+export default async function ViewCuenta({ params } : { params: tParams }) {
     
-    const { id } = await params;
+    const id = (await params).id;
     const session = await getServerSession(authOptions);
-    const trades = await getTradesCuenta(session.user.token, id);
-    const cuenta = await getCuentasId(session.user.token, id)
-    const pnl = await getStatsPnlPeriod(session.user.token, id, 2)
+    const trades = await getTradesCuenta(session.user.token, Number(id));
+    const cuenta = await getCuentasId(session.user.token, Number(id))
+    const pnl = await getStatsPnlPeriod(session.user.token, Number(id), 2)
     console.log(pnl)
 
     return (
@@ -30,7 +32,7 @@ export default async function ViewCuenta({ params } : { params : { id: string }}
                     </div>
                     <div className="stats-container">
                         <LastTrades trades={trades} session={session}/>
-                        <DaysTraded trades={trades} session={session}/>
+                        <DaysTraded trades={trades}/>
                         <TradesStats trades={trades} session={session} accountId={id} period={2}/>
                         <ChartStats chartData={pnl} period={2}/>
                     </div>

@@ -1,13 +1,8 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils";
 import { postCuentas } from "@/app/lib/data";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-
-interface ICuentas {
-    idUsuario: number;
-    empresa?: string;
-    tamanio: string;
-}
+import { ICuenta } from "@/app/lib/definitions";
 
 export default async function CrearCuenta() {
 
@@ -15,10 +10,10 @@ export default async function CrearCuenta() {
 
     async function handleCreate(formData : FormData) {
         "use server";
-        const updatedCuenta : ICuentas = {
+        const updatedCuenta : ICuenta = {
             idUsuario: session.user.user.idUsuario,
             empresa: formData.get('empresa') as string | undefined,
-            tamanio: formData.get('tamanio') as string,
+            tamanio: Number(formData.get('tamanio')),
         } 
         await postCuentas(session.user.token, updatedCuenta)
     }

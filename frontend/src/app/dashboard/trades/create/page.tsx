@@ -1,9 +1,9 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils";
 import { getCuentas, getCuentasId, postTrades } from "@/app/lib/data";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import "@/app/styles/create-trades.css"
-import { ITrades } from "@/app/lib/definitions";
+import { ICuenta, ITrades } from "@/app/lib/definitions";
 
 export default async function CrearTrade() {
 
@@ -68,7 +68,7 @@ export default async function CrearTrade() {
                         <input type="datetime-local" defaultValue={localDateTime} id="fechaEntrada" name="fechaEntrada" placeholder="Entry Date"required/>
                         <input type="datetime-local" defaultValue={localDateTime}  id="fechaSalida" name="fechaSalida" placeholder="Exit Date (Optional)" />
                         <select name="cuenta" id="cuenta">
-                            {cuentas.map(c => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
+                            {cuentas.map((c : ICuenta) => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
                         </select>
                         <select name="tipo" id="tipoTrade">
                             <option className="font-semibold" value="1">LONG</option>
@@ -93,7 +93,7 @@ export default async function CrearTrade() {
                         </div>
                     </div>
                     <div className="note-row">
-                        <textarea name="note" id="note" className="w-full" placeholder="Notes:" maxLength="1000"></textarea>
+                        <textarea name="note" id="note" className="w-full" placeholder="Notes:" maxLength={1000}></textarea>
                     </div>
                     <div className="buttons flex gap-3">
                         <button type="submit" className="bg-green-500 px-3 py-1 text-lg rounded-lg">Create</button>

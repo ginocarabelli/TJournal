@@ -1,14 +1,15 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { deleteTrades, getCuentas, getCuentasId, getTradesId, putTrades } from "@/app/lib/data";
+import { authOptions } from "@/app/lib/utils";
+import { getCuentas, getCuentasId, getTradesId, putTrades } from "@/app/lib/data";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import "@/app/styles/create-trades.css"
-import { ITrades } from "@/app/lib/definitions";
+import { ICuenta, ITrades } from "@/app/lib/definitions";
 
-export default async function UpdateTrade({ params } : { params : { id: string }}) {
+type tParams = Promise<{ id: number }>;
 
-    const awaitedParams = await params;
-    const idTrade = awaitedParams.id;
+export default async function UpdateTrade({ params } : { params : tParams }) {
+
+    const idTrade = (await params).id;
     const session = await getServerSession(authOptions)
     const trade = await getTradesId(session.user.token, Number(idTrade))
     const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario)
@@ -69,7 +70,7 @@ export default async function UpdateTrade({ params } : { params : { id: string }
                         <input type="datetime-local" defaultValue={formatDateForInput(trade.fechaEntrada)} id="fechaEntrada" name="fechaEntrada" placeholder="Entry Date" required/>
                         <input type="datetime-local" defaultValue={formatDateForInput(trade.fechaSalida)} id="fechaSalida" name="fechaSalida" placeholder="Exit Date (Optional)" required/>
                         <select name="cuenta" defaultValue={trade.idCuenta} id="cuenta" required>
-                            {cuentas.map(c => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
+                            {cuentas.map((c : ICuenta) => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
                         </select>
                         <select name="tipoTrade" defaultValue={trade.idTipoTrade} id="tipoTrade" required>
                             <option value="1">LONG</option>
@@ -94,7 +95,7 @@ export default async function UpdateTrade({ params } : { params : { id: string }
                         </div>
                     </div>
                     <div className="note-row">
-                        <textarea name="note" defaultValue={trade.nota ? trade.nota : ""} id="note" className="w-full" placeholder="Notes:" maxLength="1000"></textarea>
+                        <textarea name="note" defaultValue={trade.nota ? trade.nota : ""} id="note" className="w-full" placeholder="Notes:" maxLength={1000}></textarea>
                     </div>
                     <div className="buttons flex gap-3">
                         <button type="submit" className="bg-yellow-500 px-3 py-1 text-lg rounded-lg">Edit</button>

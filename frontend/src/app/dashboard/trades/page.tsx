@@ -1,12 +1,11 @@
 import "@/app/styles/trades.css"
 import TradesCompo from "@/components/TradesCompo";
 import TradesStatsCompo from "@/components/TradesStatsCompo";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils";
 import { getServerSession } from "next-auth";
 import { getCuentas, getTrades } from "@/app/lib/data";
 import Link from "next/link";
 import { Suspense } from "react";
-import { Loader } from "@/components/ui/loader";
 import TradesStatsSkeleton from "@/components/skeletons/TradesStatsSkeleton";
 import TradesCompoSkeleton from "@/components/skeletons/TradesCompoSkeleton";
 
@@ -20,7 +19,7 @@ export default async function Trades() {
         <div className="w-auto my-12">
         {trades.length > 0 ? (
             <div className="my-12 px-10 w-full flex flex-col gap-3 text-white">
-                <h3 className="mx-2"><strong>{user.nombre}</strong>'s Trades</h3>
+                <h3 className="mx-2"><strong>{user.nombre}</strong>&apos;s Trades</h3>
                 <div className="create-trade m-2">
                     <Link className="bg-orange-500 p-3 m-auto font-bold rounded-lg" href="/dashboard/trades/create">Create Trade</Link>
                 </div>

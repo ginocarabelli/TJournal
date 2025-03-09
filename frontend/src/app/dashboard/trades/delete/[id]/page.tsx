@@ -1,12 +1,15 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils";
 import { deleteTrades, getCuentas, getTradesId } from "@/app/lib/data";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import "@/app/styles/create-trades.css"
+import { ICuenta } from "@/app/lib/definitions";
 
-export default async function DeleteTrade({ params } : { params : { id: string }}) {
+type tParams = Promise<{ id: number }>;
 
-    const idTrade = await params.id
+export default async function DeleteTrade({ params } : { params : tParams }) {
+
+    const idTrade = (await params).id;
     const session = await getServerSession(authOptions)
     const trade = await getTradesId(session.user.token, Number(idTrade))
     console.log(session)
@@ -14,7 +17,7 @@ export default async function DeleteTrade({ params } : { params : { id: string }
 
     async function handleDelete() {
         "use server";
-        await deleteTrades(session.user.token, Number(params.id))
+        await deleteTrades(session.user.token, Number(idTrade))
     }
 
     return (
@@ -26,7 +29,7 @@ export default async function DeleteTrade({ params } : { params : { id: string }
                         <input type="datetime" defaultValue={trade.fechaEntrada.slice(0, -3).replace("T", " - ")} id="fechaEntrada" name="fechaEntrada" placeholder="Entry Date" disabled/>
                         <input type="datetime" defaultValue={trade.fechaSalida.slice(0, -3).replace("T", " - ")} id="fechaSalida" name="fechaSalida" placeholder="Exit Date (Optional)" disabled/>
                         <select name="cuenta" defaultValue={trade.idCuenta} id="cuenta" disabled>
-                            {cuentas.map(c => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
+                            {cuentas.map((c : ICuenta) => (<option key={c.idCuenta} value={c.idCuenta}>{c.empresa} - ${c.tamanio}</option>))}
                         </select>
                         <select name="tipoTrade" defaultValue={trade.idTipoTrade} id="tipoTrade" disabled>
                             <option value="1">LONG</option>
@@ -51,7 +54,7 @@ export default async function DeleteTrade({ params } : { params : { id: string }
                         </div>
                     </div>
                     <div className="note-row">
-                        <textarea name="note" defaultValue={trade.note ? trade.note : "Without Notes"} id="note" className="w-full" placeholder="Notes:" maxLength="1000" disabled></textarea>
+                        <textarea name="note" defaultValue={trade.note ? trade.note : "Without Notes"} id="note" className="w-full" placeholder="Notes:" maxLength={1000} disabled></textarea>
                     </div>
                     <div className="buttons flex gap-3">
                         <button type="submit" className="bg-red-500 px-3 py-1 text-lg rounded-lg">Delete</button>

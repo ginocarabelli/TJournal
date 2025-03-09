@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "../components/ui/fonts";
 import { Providers } from "./context/Providers";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Trading Journal",

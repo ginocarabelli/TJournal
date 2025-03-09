@@ -1,20 +1,21 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils";
 import { deleteCuentas, getCuentasId } from "@/app/lib/data";
 import Dialog from "@/components/Dialog";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
-export default async function DeleteAccount({ params } : { params : { id: string }}) {
+type tParams = Promise<{ id: number }>;
 
-    const awaitedParams = await params;
-    const idCuenta = awaitedParams?.id;
+export default async function DeleteAccount({ params } : { params: tParams }) {
+
+    const awaitedParams = (await params).id;
     const session = await getServerSession(authOptions)
-    const cuenta = await getCuentasId(session.user.token, Number(idCuenta))
+    const cuenta = await getCuentasId(session.user.token, Number(awaitedParams))
 
     async function handleDelete() {
         "use server";
 
-        await deleteCuentas(session.user.token, Number(idCuenta))
+        await deleteCuentas(session.user.token, Number(awaitedParams))
     }
 
     async function onClose() {
@@ -44,7 +45,7 @@ export default async function DeleteAccount({ params } : { params : { id: string
                     </div>
                 </div>
                 <div className="action-buttons flex gap-3">
-                    <Link href={`/dashboard/cuentas/delete/${idCuenta}?showDialog=y`} className="bg-green-500 px-3 py-2">
+                    <Link href={`/dashboard/cuentas/delete/${awaitedParams}?showDialog=y`} className="bg-green-500 px-3 py-2">
                         Confirmar
                     </Link>
                 </div>

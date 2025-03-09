@@ -83,7 +83,7 @@ export async function getTradesId(token : string, trade : number) {
     const data = await res.json();
     return data;
 }
-export async function getTradesCuenta(token : string, trade : ITrades) {
+export async function getTradesCuenta(token : string, trade : number) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/cuenta/${trade}`,
         {
             method: "GET",
@@ -255,9 +255,9 @@ export async function putUser(token : string, user : IUser) {
         console.error("Error:", errorData);
         return { status: res.status, message: errorData };
     }
-    const data = await res;
+    const data = await res.text();
     revalidatePath('/dashboard');
-    return data;
+    return { status: res.status, message: data };
 }
 export async function deleteCuentas(token : string, cuenta : number) {
 

@@ -38,7 +38,7 @@ export default function EditUser({ user, handleEdit }) {
                 <input className="px-3 py-2 rounded-lg text-2xl" type="password" name="repeatPassword" id="repeatPassword" placeholder="Repeat new password" autoComplete="new-password" onChange={() => setEdit(true)}/>
             </div>
         </div>
-        <p className={`text-red-500 ${edit ? 'opacity-100' : 'opacity-0'}`}><strong>WARNING</strong>: If you update your user data, your session will be closed, no problem, you'll can log in again later.</p>
+        <p className={`text-red-500 ${edit ? 'opacity-100' : 'opacity-0'}`}><strong>WARNING</strong>: If you update your user data, your session will be closed, no problem, you&apos;ll can log in again later.</p>
         {edit ? 
             <div className="row flex flex-col gap-3">
                 

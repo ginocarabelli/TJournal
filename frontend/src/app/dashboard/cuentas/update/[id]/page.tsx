@@ -1,31 +1,25 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getCuentasId, putCuentas } from "@/app/lib/data";
+import { ICuenta } from "@/app/lib/definitions";
+import { authOptions } from "@/app/lib/utils";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-interface ICuentas {
-    idUsuario: number;
-    idCuenta: number;
-    empresa?: string;
-    tamanio: string;
-    fechaCreacion?: Date;
-}
+type tParams = Promise<{ id: number }>;
 
-export default async function EditAccount({ params } : { params : { id: string }}) {
+export default async function EditAccount({ params } : { params : tParams }) {
 
-    const idCuenta = params.id;
+    const idCuenta = (await params).id;
     const session = await getServerSession(authOptions)
-    const cuenta = await getCuentasId(session.user.token, idCuenta)
+    const cuenta = await getCuentasId(session.user.token, Number(idCuenta))
     console.log(cuenta)
 
     async function handleEdit(formData : FormData) {
         "use server";
-        const updatedCuenta : ICuentas = {
+        const updatedCuenta : ICuenta = {
             idUsuario: session.user.user.idUsuario,
             idCuenta: Number(idCuenta) as number,
             empresa: formData.get('empresa') as string | undefined,
-            tamanio: formData.get('tamanio') as string,
+            tamanio: Number(formData.get('tamanio')),
         } 
         await putCuentas(session.user.token, updatedCuenta)
     }

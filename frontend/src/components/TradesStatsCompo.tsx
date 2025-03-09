@@ -1,4 +1,4 @@
-import { getStatsAverage, getStatsEmotion, getStatsPercentage, getStatsPnlPeriod, getTrades } from "@/app/lib/data";
+import { getStatsAverage, getStatsEmotion, getStatsPercentage, getStatsPnlPeriod } from "@/app/lib/data";
 import Card from "./Card";
 
 interface ITrades {

@@ -1,23 +1,24 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getUser, putUser } from "@/app/lib/data";
 import { IUser } from "@/app/lib/definitions";
+import { authOptions } from "@/app/lib/utils";
 import EditUser from "@/components/EditUser";
-import { Loader } from "@/components/ui/loader";
 import { getServerSession } from "next-auth";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { setErrorMessage } from "@/app/lib/utils"; // Función para establecer el mensaje de error
 
-export default async function Configuracion({ searchParams }: { searchParams: { status?: string; message?: string } }) {
+export default async function Configuracion() {
   
-  const param = await searchParams;
   const session = await getServerSession(authOptions);
   const user = await getUser(session.user.token, session.user.user.idUsuario);
 
   async function handleEdit(formData: FormData) {
     "use server";
+    
+    // Validación de contraseñas
     if (formData.get("password") !== formData.get("repeatPassword")) {
-      redirect("/dashboard/configuracion?status=error&message=Las%20contraseñas%20no%20coinciden");
+      // Establecer el error en la sesión y redirigir
+      await setErrorMessage("Las contraseñas no coinciden");
+      return redirect("/dashboard/configuracion");
     }
 
     const usuario: IUser = {
@@ -30,29 +31,20 @@ export default async function Configuracion({ searchParams }: { searchParams: { 
     };
 
     const response = await putUser(session.user.token, usuario);
-
     if (response.status === 400) {
-      redirect(`/dashboard/configuracion?status=error&message=${encodeURIComponent(response.message)}`);
+      await setErrorMessage(response.message); // Establecer mensaje de error en la sesión
+      return redirect("/dashboard/configuracion");
     }
-    redirect("/logout")
+    
+    // Redirigir a logout si todo fue correcto
+    return redirect("/logout");
   }
 
   return (
     <div className="w-full h-screen py-12 font-semibold">
       <main className="m-auto px-5 w-full h-full flex flex-col gap-3 text-white font-semibold m-auto">
-        <h1>Configuración</h1>
-        <EditUser user={user} handleEdit={handleEdit}/>
-        <div className="result w-full flex justify-start">
-        {param.message && (
-          <div
-            className={`p-3 rounded-lg w-auto ${
-              param.status === "error" ? "bg-red-500" : "bg-green-500"
-            }`}
-          >
-            {decodeURIComponent(param.message)}
-          </div>
-        )}
-        </div>
+        <h1>Configuration</h1>
+        <EditUser user={user} handleEdit={handleEdit} />
       </main>
     </div>
   );
