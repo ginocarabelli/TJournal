@@ -7,7 +7,7 @@ export default async function TradesCompo({ session, cuentas, trades }) {
     function convertAccount(idCuenta : number) {
         const selectedAccount = cuentas.length > 1 ? cuentas.filter(c => c.idCuenta === idCuenta)[0] : cuentas;
         const cuentaModel : ICuenta = {
-            idUsuario: session.user.user.idUsuario,
+            idUsuario: session.user.id,
             idCuenta: idCuenta,
             empresa: selectedAccount.empresa,
             tamanio: selectedAccount.tamanio,

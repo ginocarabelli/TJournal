@@ -19,7 +19,8 @@ export default function Login() {
         e.preventDefault();
         setErrors("");
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}user/register`, {
+        const res = await fetch(`
+http://bitacoratrading.somee.com/user/register`, {
             method: "POST",
             body: JSON.stringify({
                 nombre: name,

@@ -6,7 +6,7 @@ export default function EditUser({ user, handleEdit }) {
 
   return (
     <div className="form-container w-3/4 flex flex-col gap-3 m-auto">
-        <p>Perfil de <strong>{user.nombre}</strong></p>
+        <p><strong>{user.nombre}</strong>&apos;s Profile</p>
         <form action={handleEdit} className="mx-auto flex flex-col text-black gap-3 w-full justify-center">
         <div className="flex gap-3 w-full">
             <div className="flex flex-col gap-3 w-full">

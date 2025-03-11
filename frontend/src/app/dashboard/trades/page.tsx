@@ -12,14 +12,14 @@ import TradesCompoSkeleton from "@/components/skeletons/TradesCompoSkeleton";
 export default async function Trades() {
 
     const session = await getServerSession(authOptions);
-    const user = session.user.user;
-    const trades = await getTrades(session.user.token, session.user.user.idUsuario);
-    const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario)
+    const user = session.user;
+    const trades = await getTrades(session.user.token, session.user.id);
+    const cuentas = await getCuentas(session.user.token, session.user.id)
     return (
         <div className="w-auto my-12">
         {trades.length > 0 ? (
             <div className="my-12 px-10 w-full flex flex-col gap-3 text-white">
-                <h3 className="mx-2"><strong>{user.nombre}</strong>&apos;s Trades</h3>
+                <h3 className="mx-2"><strong>{user.name}</strong>&apos;s Trades</h3>
                 <div className="create-trade m-2">
                     <Link className="bg-orange-500 p-3 m-auto font-bold rounded-lg" href="/dashboard/trades/create">Create Trade</Link>
                 </div>
@@ -34,7 +34,7 @@ export default async function Trades() {
             </div>  
         ) : (
             <div className="p-10 w-full flex flex-col gap-3">
-                <h3 className="mx-2">Trades de <strong>{user.nombre}</strong></h3>
+                <h3 className="mx-2">Trades de <strong>{user.name}</strong></h3>
                 <div className="parent m-auto">
                 {cuentas.length > 0 ? (
                     <div className="message flex flex-col w-full gap-3">

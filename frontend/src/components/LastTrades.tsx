@@ -3,7 +3,7 @@ import React from 'react'
 
 export default async function LastTrades({ session, trades }) {
 
-    const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario)
+    const cuentas = await getCuentas(session.user.token, session.user.id)
 
     return (
         <div className="ultimos-trades bg-neutral-950 rounded-xl w-full mx-auto p-5" id="ultimosTrades">

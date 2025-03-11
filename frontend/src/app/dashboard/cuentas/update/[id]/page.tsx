@@ -16,7 +16,7 @@ export default async function EditAccount({ params } : { params : tParams }) {
     async function handleEdit(formData : FormData) {
         "use server";
         const updatedCuenta : ICuenta = {
-            idUsuario: session.user.user.idUsuario,
+            idUsuario: session.user.id,
             idCuenta: Number(idCuenta) as number,
             empresa: formData.get('empresa') as string | undefined,
             tamanio: Number(formData.get('tamanio')),

@@ -13,7 +13,7 @@ export default async function DeleteTrade({ params } : { params : tParams }) {
     const session = await getServerSession(authOptions)
     const trade = await getTradesId(session.user.token, Number(idTrade))
     console.log(session)
-    const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario)
+    const cuentas = await getCuentas(session.user.token, session.user.id)
 
     async function handleDelete() {
         "use server";

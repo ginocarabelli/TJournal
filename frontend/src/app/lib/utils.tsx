@@ -1,6 +1,4 @@
-import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { IToken, IUser } from "./definitions";
 
 export const authOptions = {
     providers: [
@@ -20,15 +18,21 @@ export const authOptions = {
             headers: { "Content-Type": "application/json" },
           });
           const data = await res.json();
+          console.log(data)
           if (data.status === 401) {
             throw new Error("Las credenciales son inválidas o incorrectas");
           }
-          return data;
+          return {
+            id: data.id,
+            name: data.user.nombre,
+            email: data.user.email,
+            token: data.token,
+          };
         },
       }),
     ],
     callbacks: {
-      async jwt({ token, user }: { token: IToken; user?: IUser }) {
+      async jwt({ token, user }) {
         if (user) {
           return { ...token, ...user };
         }
@@ -43,8 +47,3 @@ export const authOptions = {
       signIn: "/login",
     },
 };
-
-export async function setErrorMessage(message: string) {
-  const session = await getServerSession(authOptions);
-  session.user.errorMessage = message;
-}

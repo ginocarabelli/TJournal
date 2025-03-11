@@ -8,7 +8,7 @@ import { ICuenta, ITrades } from "@/app/lib/definitions";
 export default async function CrearTrade() {
 
     const session = await getServerSession(authOptions)
-    const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario);
+    const cuentas = await getCuentas(session.user.token, session.user.id);
 
     async function handleCreate(formData: FormData) {
         "use server";

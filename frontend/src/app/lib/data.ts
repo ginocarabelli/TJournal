@@ -3,7 +3,8 @@ import { redirect } from "next/navigation";
 import { ICuenta, IPnl, ITrades, IUser } from "./definitions";
 
 export async function getUser(token : string, user : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Usuario/id/${user}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Usuario/id/${user}`,
         {
             method: "GET",
             headers: { 
@@ -20,7 +21,8 @@ export async function getUser(token : string, user : number) {
     return data;
 }
 export async function getCuentas(token : string, user : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Cuenta/user/${user}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Cuenta/user/${user}`,
         {
             method: "GET",
             headers: { 
@@ -36,7 +38,8 @@ export async function getCuentas(token : string, user : number) {
     return data;
 }
 export async function getCuentasId(token : string, cuenta : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Cuenta/id/${cuenta}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Cuenta/id/${cuenta}`,
         {
             method: "GET",
             headers: { 
@@ -52,7 +55,8 @@ export async function getCuentasId(token : string, cuenta : number) {
     return data[0];
 }
 export async function getTrades(token : string, user : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/user/${user}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade/user/${user}`,
         {
             method: "GET",
             headers: { 
@@ -68,7 +72,8 @@ export async function getTrades(token : string, user : number) {
     return data;
 }
 export async function getTradesId(token : string, trade : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/id/${trade}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade/id/${trade}`,
         {
             method: "GET",
             headers: { 
@@ -84,7 +89,8 @@ export async function getTradesId(token : string, trade : number) {
     return data;
 }
 export async function getTradesCuenta(token : string, trade : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/cuenta/${trade}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade/cuenta/${trade}`,
         {
             method: "GET",
             headers: { 
@@ -100,7 +106,8 @@ export async function getTradesCuenta(token : string, trade : number) {
     return data;
 }
 export async function getStatsPercentage(token : string, account : number, period : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Estadistica/porcentaje/${account}-${period}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Estadistica/porcentaje/${account}-${period}`,
         {
             method: "GET",
             headers: { 
@@ -116,7 +123,8 @@ export async function getStatsPercentage(token : string, account : number, perio
     return data;
 }
 export async function getStatsAverage(token : string, account : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Estadistica/promedio/${account}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Estadistica/promedio/${account}`,
         {
             method: "GET",
             headers: { 
@@ -132,7 +140,8 @@ export async function getStatsAverage(token : string, account : number) {
     return data;
 }
 export async function getStatsPnlPeriod(token : string, account : number, period : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Estadistica/pnlPeriod/${account}-${period}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Estadistica/pnlPeriod/${account}-${period}`,
         {
             method: "GET",
             headers: { 
@@ -152,7 +161,8 @@ export async function getStatsPnlPeriod(token : string, account : number, period
     }));
 }
 export async function getStatsEmotion(token : string, account : number, period : number) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Estadistica/emotion/${account}-${period}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Estadistica/emotion/${account}-${period}`,
         {
             method: "GET",
             headers: { 
@@ -168,7 +178,8 @@ export async function getStatsEmotion(token : string, account : number, period :
     return data;
 }
 export async function postCuentas(token : string, cuenta : ICuenta) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Cuenta`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Cuenta`,
         {
             method: "POST",
             body: JSON.stringify(cuenta),
@@ -186,7 +197,8 @@ export async function postCuentas(token : string, cuenta : ICuenta) {
     redirect('/dashboard/cuentas');
 }
 export async function postTrades(token : string, trade : ITrades) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade`,
         {
             method: "POST",
             body: JSON.stringify(trade),
@@ -205,7 +217,8 @@ export async function postTrades(token : string, trade : ITrades) {
     redirect('/dashboard/trades');
 }
 export async function putCuentas(token : string, cuenta : ICuenta) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Cuenta/${cuenta.idCuenta}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Cuenta/${cuenta.idCuenta}`,
         {
             method: "PUT",
             body: JSON.stringify(cuenta),
@@ -223,7 +236,8 @@ export async function putCuentas(token : string, cuenta : ICuenta) {
     redirect('/dashboard/cuentas');
 }
 export async function putTrades(token : string, trade : ITrades) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/${trade.idTrade}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade/${trade.idTrade}`,
         {
             method: "PUT",
             body: JSON.stringify(trade),
@@ -240,7 +254,8 @@ export async function putTrades(token : string, trade : ITrades) {
     redirect('/dashboard/trades');
 }
 export async function putUser(token : string, user : IUser) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Usuario/${user.idUsuario}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Usuario/${user.idUsuario}`,
         {
             method: "PUT",
             body: JSON.stringify(user),
@@ -261,7 +276,8 @@ export async function putUser(token : string, user : IUser) {
 }
 export async function deleteCuentas(token : string, cuenta : number) {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Cuenta/${cuenta}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Cuenta/${cuenta}`,
         {
             method: "DELETE",
             headers: { 
@@ -278,7 +294,8 @@ export async function deleteCuentas(token : string, cuenta : number) {
 }
 export async function deleteTrades(token : string, trade : number) {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/Trade/${trade}`,
+    const res = await fetch(`
+http://bitacoratrading.somee.com/api/Trade/${trade}`,
         {
             method: "DELETE",
             headers: { 

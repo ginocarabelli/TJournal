@@ -17,11 +17,10 @@ import { ChartStatsSkeleton } from "@/components/skeletons/ChartsStatsSkeleton";
 export default async function Dashboard() {
 
     const session = await getServerSession(authOptions)
-    const user = session.user.user;
-    const cuentas = await getCuentas(session.user.token, session.user.user.idUsuario);
-    const trades = await getTrades(session.user.token, session.user.user.idUsuario)
+    const user = session.user;
+    const cuentas = await getCuentas(session.user.token, session.user.id);
+    const trades = await getTrades(session.user.token, session.user.id)
     const pnl : IPnl[] = await getStatsPnlPeriod(session.user.token, 0, 2)
-    console.log(session)
 
     function calculatePeriod(period : number) {
         
@@ -43,7 +42,7 @@ export default async function Dashboard() {
         <div className="w-auto my-12">
             {cuentas.length > 0 ? (
                 <main className="mx-5 w-full h-full flex flex-col gap-3 text-white font-semibold">
-                    <h1 className="my-auto"><strong>{user.nombre}</strong>&apos; Dashboard</h1>
+                    <h1 className="my-auto"><strong>{user.name}</strong>&apos;s Dashboard</h1>
                     <SelectCuenta cuentas={cuentas} />
                     <div className="stats-container">
                         <Suspense fallback={<LastTradesSkeleton/>}>
@@ -62,7 +61,7 @@ export default async function Dashboard() {
                 </main>
             ) : (
                 <main className="w-full h-screen flex flex-col p-10">
-                    <h1>Dashboard de <strong>{user.nombre}</strong></h1>
+                    <h1>Dashboard de <strong>{user.name}</strong></h1>
                     <div className="w-full flex flex-col gap-3 m-auto">
                         <h1 className="m-auto">You dont have accounts registered yet.</h1>
                         <Link className="bg-green-500 px-3 py-2 mx-auto font-bold rounded-lg" href={`/dashboard/cuentas/create`}>Create Account</Link>

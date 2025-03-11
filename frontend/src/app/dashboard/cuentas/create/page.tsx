@@ -11,7 +11,7 @@ export default async function CrearCuenta() {
     async function handleCreate(formData : FormData) {
         "use server";
         const updatedCuenta : ICuenta = {
-            idUsuario: session.user.user.idUsuario,
+            idUsuario: session.user.id,
             empresa: formData.get('empresa') as string | undefined,
             tamanio: Number(formData.get('tamanio')),
         } 
